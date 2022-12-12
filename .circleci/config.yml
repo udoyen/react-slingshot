@@ -8,6 +8,11 @@ defaults: &defaults
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 version: 2.1
 jobs:
+  install_dependencies:
+    <<: *defaults
+    steps:
+      - checkout
+      - run: npm install
   build:
     <<: *defaults
     steps:
@@ -28,7 +33,10 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - build
+      - install_dependencies
+      - build:
+          requires:
+            - install_dependencies
       - test:
           requires:
             -  build
