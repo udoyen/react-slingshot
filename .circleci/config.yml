@@ -30,7 +30,7 @@ jobs:
 workflows:
   say-hello-workflow:
     jobs:
-      - build:
+      - build
       - test:
           requires:
             -  build
